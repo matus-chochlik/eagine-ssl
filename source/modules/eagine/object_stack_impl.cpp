@@ -58,8 +58,8 @@ auto stack_api<x509_tag>::push(stack_type* h, element_type* e) const noexcept
 #endif
 }
 //------------------------------------------------------------------------------
-auto stack_api<x509_tag>::push_up_ref(stack_type* h, element_type* e)
-  const noexcept -> int {
+auto stack_api<x509_tag>::push_up_ref(stack_type* h, element_type* e) const noexcept
+  -> int {
 #if EAGINE_HAS_SSL
     X509_up_ref(e);
     return OPENSSL_sk_push(reinterpret_cast<OPENSSL_STACK*>(h), e);

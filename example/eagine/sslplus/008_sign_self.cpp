@@ -46,14 +46,10 @@ auto main(main_ctx& ctx) -> int {
                          ssl.sign_data_digest(data, cover(temp), md, pkey)}) {
 
                         ctx.cio()
-                          .print(
-                            identifier{"ssl"}, "signature of self (${size})")
+                          .print(identifier{"ssl"}, "signature of self (${size})")
                           .arg(
-                            identifier{"size"},
-                            identifier{"ByseSize"},
-                            sig.size())
-                          .arg(
-                            identifier{"signature"}, memory::const_block{sig});
+                            identifier{"size"}, identifier{"ByseSize"}, sig.size())
+                          .arg(identifier{"signature"}, memory::const_block{sig});
 
                         if(ssl.verify_data_digest(data, sig, md, pkey)) {
                             ctx.cio().print(
@@ -98,4 +94,3 @@ auto main(main_ctx& ctx) -> int {
 auto main(int argc, const char** argv) -> int {
     return eagine::default_main(argc, argv, eagine::main);
 }
-

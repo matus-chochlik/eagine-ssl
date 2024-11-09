@@ -60,8 +60,7 @@ auto main(main_ctx& ctx) -> int {
                       .print(
                         identifier{"ssl"},
                         "successfully verified certificate ${certPath}")
-                      .arg(
-                        identifier{"certPath"}, identifier{"FsPath"}, cert_path)
+                      .arg(identifier{"certPath"}, identifier{"FsPath"}, cert_path)
                       .arg(identifier{"snEntCount"}, count);
                     const auto entry_cio{
                       ctx.cio()
@@ -70,32 +69,25 @@ auto main(main_ctx& ctx) -> int {
                         .to_be_continued()};
 
                     for(const auto index : integer_range(count)) {
-                        if(const auto entry{
-                             ssl.get_name_entry(*subname, index)}) {
-                            const auto object{
-                              ssl.get_name_entry_object(*entry)};
+                        if(const auto entry{ssl.get_name_entry(*subname, index)}) {
+                            const auto object{ssl.get_name_entry_object(*entry)};
                             const auto value{ssl.get_name_entry_data(*entry)};
 
                             std::array<char, 96> namebuf{};
-                            const auto name{ssl.get_object_text(
-                              cover(namebuf), *object, false)};
+                            const auto name{
+                              ssl.get_object_text(cover(namebuf), *object, false)};
 
                             entry_cio.print("${index}: ${attribute}=${value}")
                               .arg(identifier{"index"}, index)
                               .arg(identifier{"attribute"}, name)
                               .arg(
-                                identifier{"value"},
-                                ssl.get_string_view(*value));
+                                identifier{"value"}, ssl.get_string_view(*value));
                         }
                     }
                 } else {
                     ctx.log()
-                      .error(
-                        "failed to get certificate ${certPath} serial number")
-                      .arg(
-                        identifier{"certPath"},
-                        identifier{"FsPath"},
-                        cert_path);
+                      .error("failed to get certificate ${certPath} serial number")
+                      .arg(identifier{"certPath"}, identifier{"FsPath"}, cert_path);
                 }
             } else {
                 ctx.log()
@@ -117,4 +109,3 @@ auto main(main_ctx& ctx) -> int {
 auto main(int argc, const char** argv) -> int {
     return eagine::default_main(argc, argv, eagine::main);
 }
-

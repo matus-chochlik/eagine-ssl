@@ -37,8 +37,7 @@ auto main(main_ctx& ctx) -> int {
                       .arg(identifier{"id"}, engine_id)
                       .arg(identifier{"bytes"}, view(temp));
                 } else {
-                    log
-                      .error("failed to get random bytes from ${id}: ${reason}")
+                    log.error("failed to get random bytes from ${id}: ${reason}")
                       .arg(identifier{"id"}, engine_id)
                       .arg(identifier{"reason"}, rand_result.message());
                 }
@@ -65,4 +64,3 @@ auto main(main_ctx& ctx) -> int {
 auto main(int argc, const char** argv) -> int {
     return eagine::default_main(argc, argv, eagine::main);
 }
-

@@ -36,17 +36,12 @@ auto main(main_ctx& ctx) -> int {
                       .print(
                         identifier{"ssl"},
                         "successfully verified certificate ${certPath}")
-                      .arg(
-                        identifier{"certPath"}, identifier{"FsPath"}, cert_path)
+                      .arg(identifier{"certPath"}, identifier{"FsPath"}, cert_path)
                       .arg(identifier{"serialNo"}, *ssl.get_int64(*serial));
                 } else {
                     ctx.log()
-                      .error(
-                        "failed to get certificate ${certPath} serial number")
-                      .arg(
-                        identifier{"certPath"},
-                        identifier{"FsPath"},
-                        cert_path);
+                      .error("failed to get certificate ${certPath} serial number")
+                      .arg(identifier{"certPath"}, identifier{"FsPath"}, cert_path);
                 }
             } else {
                 ctx.log()
@@ -72,4 +67,3 @@ auto main(main_ctx& ctx) -> int {
 auto main(int argc, const char** argv) -> int {
     return eagine::default_main(argc, argv, eagine::main);
 }
-

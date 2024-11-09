@@ -80,13 +80,8 @@ public:
     template <
       typename Signature,
       c_api::function_ptr<api_traits, nothing_t, Signature> Function>
-    using ssl_api_function = c_api::opt_function<
-      api_traits,
-      nothing_t,
-      Signature,
-      Function,
-      has_api,
-      bool(Function)>;
+    using ssl_api_function = c_api::
+      opt_function<api_traits, nothing_t, Signature, Function, has_api, bool(Function)>;
 
     // error
     ssl_api_function<unsigned long(), EAGINE_SSL_STATIC_FUNC(ERR_get_error)>
@@ -141,9 +136,7 @@ public:
       EAGINE_SSL_STATIC_FUNC(OSSL_LIB_CTX_set0_default)>
       lib_ctx_set_default{"OSSL_LIB_CTX_set0_default", *this};
 
-    ssl_api_function<
-      void(lib_ctx_type*),
-      EAGINE_SSL_STATIC_FUNC(OSSL_LIB_CTX_free)>
+    ssl_api_function<void(lib_ctx_type*), EAGINE_SSL_STATIC_FUNC(OSSL_LIB_CTX_free)>
       lib_ctx_free{"OSSL_LIB_CTX_free", *this};
 
     // provider
@@ -227,8 +220,9 @@ public:
       EAGINE_SSL_STATIC_FUNC(BIO_new_mem_buf)>
       bio_new_mem_buf{"BIO_new_mem_buf", *this};
 
-    ssl_api_function<int(bio_type*), EAGINE_SSL_STATIC_FUNC(BIO_up_ref)>
-      bio_up_ref{"BIO_up_ref", *this};
+    ssl_api_function<int(bio_type*), EAGINE_SSL_STATIC_FUNC(BIO_up_ref)> bio_up_ref{
+      "BIO_up_ref",
+      *this};
 
     ssl_api_function<int(bio_type*), EAGINE_SSL_STATIC_FUNC(BIO_free)> bio_free{
       "BIO_free",
@@ -238,9 +232,7 @@ public:
       bio_free_all{"BIO_free_all", *this};
 
     // random
-    ssl_api_function<
-      int(unsigned char*, int num),
-      EAGINE_SSL_STATIC_FUNC(RAND_bytes)>
+    ssl_api_function<int(unsigned char*, int num), EAGINE_SSL_STATIC_FUNC(RAND_bytes)>
       rand_bytes{"RAND_bytes", *this};
 
     // pkey
@@ -405,8 +397,9 @@ public:
     ssl_api_function<const evp_md_type*(), EAGINE_SSL_STATIC_FUNC(EVP_md_null)>
       evp_md_null{"EVP_md_null", *this};
 
-    ssl_api_function<const evp_md_type*(), EAGINE_SSL_STATIC_FUNC(EVP_md5)>
-      evp_md5{"EVP_md5", *this};
+    ssl_api_function<const evp_md_type*(), EAGINE_SSL_STATIC_FUNC(EVP_md5)> evp_md5{
+      "EVP_md5",
+      *this};
 
     ssl_api_function<const evp_md_type*(), EAGINE_SSL_STATIC_FUNC(EVP_sha1)>
       evp_sha1{"EVP_sha1", *this};
@@ -439,14 +432,10 @@ public:
     ssl_api_function<evp_md_ctx_type*(), EAGINE_SSL_STATIC_FUNC(EVP_MD_CTX_new)>
       evp_md_ctx_new{"EVP_MD_CTX_new", *this};
 
-    ssl_api_function<
-      int(evp_md_ctx_type*),
-      EAGINE_SSL_STATIC_FUNC(EVP_MD_CTX_reset)>
+    ssl_api_function<int(evp_md_ctx_type*), EAGINE_SSL_STATIC_FUNC(EVP_MD_CTX_reset)>
       evp_md_ctx_reset{"EVP_MD_CTX_reset", *this};
 
-    ssl_api_function<
-      void(evp_md_ctx_type*),
-      EAGINE_SSL_STATIC_FUNC(EVP_MD_CTX_free)>
+    ssl_api_function<void(evp_md_ctx_type*), EAGINE_SSL_STATIC_FUNC(EVP_MD_CTX_free)>
       evp_md_ctx_free{"EVP_MD_CTX_free", *this};
 
     ssl_api_function<
@@ -539,9 +528,7 @@ public:
     ssl_api_function<
       void(x509_store_ctx_type*, x509_stack_type*),
       EAGINE_SSL_STATIC_FUNC(X509_STORE_CTX_set0_trusted_stack)>
-      x509_store_ctx_set0_trusted_stack{
-        "X509_STORE_CTX_set0_trusted_stack",
-        *this};
+      x509_store_ctx_set0_trusted_stack{"X509_STORE_CTX_set0_trusted_stack", *this};
 
     ssl_api_function<
       void(x509_store_ctx_type*, x509_stack_type*),
@@ -574,24 +561,16 @@ public:
     ssl_api_function<x509_store_type*(), EAGINE_SSL_STATIC_FUNC(X509_STORE_new)>
       x509_store_new{"X509_STORE_new", *this};
 
-    ssl_api_function<
-      int(x509_store_type*),
-      EAGINE_SSL_STATIC_FUNC(X509_STORE_up_ref)>
+    ssl_api_function<int(x509_store_type*), EAGINE_SSL_STATIC_FUNC(X509_STORE_up_ref)>
       x509_store_up_ref{"X509_STORE_up_ref", *this};
 
-    ssl_api_function<
-      int(x509_store_type*),
-      EAGINE_SSL_STATIC_FUNC(X509_STORE_lock)>
+    ssl_api_function<int(x509_store_type*), EAGINE_SSL_STATIC_FUNC(X509_STORE_lock)>
       x509_store_lock{"X509_STORE_lock", *this};
 
-    ssl_api_function<
-      int(x509_store_type*),
-      EAGINE_SSL_STATIC_FUNC(X509_STORE_unlock)>
+    ssl_api_function<int(x509_store_type*), EAGINE_SSL_STATIC_FUNC(X509_STORE_unlock)>
       x509_store_unlock{"X509_STORE_unlock", *this};
 
-    ssl_api_function<
-      void(x509_store_type*),
-      EAGINE_SSL_STATIC_FUNC(X509_STORE_free)>
+    ssl_api_function<void(x509_store_type*), EAGINE_SSL_STATIC_FUNC(X509_STORE_free)>
       x509_store_free{"X509_STORE_free", *this};
 
     ssl_api_function<
@@ -651,8 +630,9 @@ public:
       EAGINE_SSL_STATIC_FUNC(X509_get_ext_count)>
       x509_get_ext_count{"X509_get_ext_count", *this};
 
-    ssl_api_function<void(x509_type*), EAGINE_SSL_STATIC_FUNC(X509_free)>
-      x509_free{"X509_free", *this};
+    ssl_api_function<void(x509_type*), EAGINE_SSL_STATIC_FUNC(X509_free)> x509_free{
+      "X509_free",
+      *this};
 
     // x509 name (entry)
     ssl_api_function<

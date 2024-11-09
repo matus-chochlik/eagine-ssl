@@ -84,8 +84,7 @@ export template <typename Handle>
 class object_stack_base;
 
 export template <typename Tag, typename T>
-class object_stack_base<c_api::basic_handle<Tag, T*, nullptr>>
-  : stack_api<Tag> {
+class object_stack_base<c_api::basic_handle<Tag, T*, nullptr>> : stack_api<Tag> {
 protected:
     typename stack_api<Tag>::stack_type* _top{nullptr};
 
@@ -232,4 +231,3 @@ struct make_arg_map<
 };
 //------------------------------------------------------------------------------
 } // namespace eagine::c_api
-
